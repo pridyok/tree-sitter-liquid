@@ -56,11 +56,10 @@ module.exports = grammar({
         $._output_statement,
       ),
 
-    liquid_tag: ($) =>
-      seq(
-        'liquid',
-        repeat(choice($._liquid_node, alias($.comment_liq, $.comment))),
-      ),
+    liquid_tag: ($) => seq('liquid', repeat($._liquid_body_node)),
+
+    _liquid_body_node: ($) =>
+      choice($._liquid_node, alias($.comment_liq, $.comment)),
 
     _liquid_node: ($) =>
       seq(
@@ -502,7 +501,7 @@ function paired($) {
     }),
 
     untagged: statements($, {
-      node: $._liquid_node,
+      node: $._liquid_body_node,
       else: $._else_aliased,
       elsif: $._elsif_aliased,
       when: $._when_aliased,

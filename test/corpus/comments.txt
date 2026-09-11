@@ -178,6 +178,40 @@ Liquid Multi-line Inline Comment
    (template_content))
 
 ==================
+Liquid Inline Comment Inside Block
+==================
+
+<html>
+  {% liquid
+    if condition
+      # a nested comment with an apostrophe's text
+      assign value = "string"
+    else
+      # another nested comment
+      echo "fallback"
+    endif
+  %}
+</html>
+
+---
+  (program
+   (template_content)
+   (liquid_tag
+    (if_statement
+     (identifier)
+     (block
+      (comment)
+      (assignment_statement
+       (identifier)
+       (string)))
+     (else_clause
+      (block
+       (comment)
+       (echo_statement
+        (string))))))
+   (template_content))
+
+==================
 Liquid Paired Comment
 ==================
 
